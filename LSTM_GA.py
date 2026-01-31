@@ -19,6 +19,8 @@ deap==1.4.3
 numpy==2.2.6
 python3.10.11
 GPU - NVIDIA GeForce RTX 4060
+
+run -  C:\ProgramData\miniconda3\_conda activate final
 """
 
 import argparse
@@ -85,10 +87,10 @@ def compute_high_flow_low_speed(flow_df: pd.DataFrame, speed_df: pd.DataFrame, p
 def build_speed_model(n_st: int, n_past: int, out_dim: int) -> tf.keras.Model:
     model = Sequential([
         Input(shape=(n_st, n_past)),
-        # Bidirectional(LSTM(64, return_sequences=True)),
-        # Bidirectional(LSTM(32, return_sequences=False)),
-        LSTM(64, return_sequences=True),
-        LSTM(32, return_sequences=False),
+        Bidirectional(LSTM(64, return_sequences=True)),
+        Bidirectional(LSTM(32, return_sequences=False)),
+        # LSTM(64, return_sequences=True),
+        # LSTM(32, return_sequences=False),
         Dropout(0.2),
         Dense(100),
         Dense(out_dim),
@@ -255,12 +257,12 @@ def main():
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--n_past", type=int, default=3)
     parser.add_argument("--n_future", type=int, default=1)
-    parser.add_argument("--epochs_speed", type=int, default=1)
-    parser.add_argument("--epochs_anom", type=int, default=1)
+    parser.add_argument("--epochs_speed", type=int, default=20)
+    parser.add_argument("--epochs_anom", type=int, default=20)
     parser.add_argument("--pop", type=int, default=20)
     parser.add_argument("--gen", type=int, default=20)
-    # parser.add_argument("--run_dir", default="runs/model1_bilstm")
-    parser.add_argument("--run_dir", default="runs/model2_lstm")
+    parser.add_argument("--run_dir", default="runs/model1_bilstm")
+    # parser.add_argument("--run_dir", default="runs/model2_lstm")
     # FIX - weights path should end with `.weights.h5`
     parser.add_argument("--weights_speed", default="speed.weights.h5")
     parser.add_argument("--weights_anom", default="anomaly.weights.h5")
@@ -391,14 +393,14 @@ def main():
     ]).to_csv(summary_path, index=False)
 
     print("Saved speed eval summary:", summary_path)
-    # ----------------------------
+    # # ----------------------------
     # Anomaly model: train and save weights
     # ----------------------------
     print("Run Anomaly")
     anomaly_model = build_anomaly_autoencoder(n_st=N_ST, n_past=args.n_past)
     # Uncomment the following if you need to train
     # train_model(anomaly_model, X_train, X_train, X_val, X_val, 16, args.epochs_anom, args.weights_anom)
-    train_model(anomaly_model, X_train, X_train, X_val, X_val, 16, args.epochs_anom, args.weights_anom,
+    train_model(anomaly_model, X_train, X_train, X_val, X_val, 4, args.epochs_anom, args.weights_anom,
             history_csv=anomaly_history_csv)
     anomaly_model.load_weights(args.weights_anom)
     # ---- Final evaluation (Anomaly) ----

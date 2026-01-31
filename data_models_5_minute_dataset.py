@@ -171,9 +171,9 @@ def main() -> None:
     y_test = X_test[["Speed1"]]
 
     # Feature columns (same overwritten assignments as original)
-    feature_cols_all = ["Flow","Flow1","p1_Flow","p2_Flow","p3_Flow","p1_Flow1","p2_Flow1","p3_Flow1","Hour","Lanes","p1_Speed1","p2_Speed1","p3_Speed1","maxspeed","dayofweek","FFS"]
+    # feature_cols_all = ["Flow","Flow1","p1_Flow","p2_Flow","p3_Flow","p1_Flow1","p2_Flow1","p3_Flow1","Hour","Lanes","p1_Speed1","p2_Speed1","p3_Speed1","maxspeed","dayofweek","FFS"]
 
-    feature_cols_all = ["Flow","Flow1","p1_Flow","p2_Flow","p3_Flow","p1_Flow1","p2_Flow1","p3_Flow1","Hour","Lanes","p1_Speed1","p2_Speed1","p3_Speed1","maxspeed","dayofweek","FFS"]
+    # feature_cols_all = ["Flow","Flow1","p1_Flow","p2_Flow","p3_Flow","p1_Flow1","p2_Flow1","p3_Flow1","Hour","Lanes","p1_Speed1","p2_Speed1","p3_Speed1","maxspeed","dayofweek","FFS"]
 
     feature_cols_all = ["Flow","Flow1","p1_Flow","p2_Flow","p3_Flow","p1_Flow1","p2_Flow1","p3_Flow1","Hour","Lanes","maxspeed"]
 

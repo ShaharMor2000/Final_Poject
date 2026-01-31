@@ -420,8 +420,8 @@ if __name__ == "__main__":
         adj_similar[i][i] = 0
 
     # Originaly it was 64
-    # batch_size = 32
-    batch_size = 64
+    batch_size = 4
+    # batch_size = 64
     input_sequence_length = 24
     forecast_horizon = 1
     multi_horizon = False
@@ -513,7 +513,7 @@ if __name__ == "__main__":
 
     in_feat = 1
     # epochs = 100
-    epochs = 1
+    epochs = 20
     input_sequence_length = 24
     forecast_horizon = 1
     multi_horizon = False
