@@ -1,5 +1,7 @@
 data/
 *.csv
 .venv/
+.miniconda/
+miniconda.exe
 __pycache__/
 node_modules/
